@@ -21,13 +21,13 @@ SOURCES += main.cpp \
     stretchrendererstdev.cpp \
     stretchrendererminmax.cpp
 
-win32: LIBS += -L$$PWD/../../../../../MinGW/msys/1.0/local/lib/ -llibgdal
-
-INCLUDEPATH += $$PWD/../../../../../MinGW/msys/1.0/local/include
-DEPENDPATH += $$PWD/../../../../../MinGW/msys/1.0/local/include
-
 HEADERS += \
     renderer.h \
     classifyrenderer.h \
     stretchrendererstdev.h \
     stretchrendererminmax.h
+
+win32: LIBS += -L$$PWD/../../../../../../../MinGW/msys/1.0/local/lib/ -llibgdal
+
+INCLUDEPATH += $$PWD/../../../../../../../MinGW/msys/1.0/local/include
+DEPENDPATH += $$PWD/../../../../../../../MinGW/msys/1.0/local/include

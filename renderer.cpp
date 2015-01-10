@@ -7,16 +7,15 @@ Renderer::Renderer(const char *rasterPath, ColorRamp ramp, int nTransparency)
     pDriverPNG = GetGDALDriverManager()->GetDriverByName("PNG");
 }
 
-int Renderer::setColorTable(ColorRamp rampStyle, int nTransparency)
+int Renderer::setTempRasterPath(const char *rasterPath)
 {
-    switch (rampStyle)
-    {
-        case CR_BlackWhite:
-        case CR_DEM:
-        case CR_DoD:
-        case CR_Slope:;
-
-    }
+    QDateTime dtCurrent = QDateTime::currentDateTime();
+    QString name, dirName, tempRasterPath;
+    QFileInfo fileInfo(QString::fromUtf8(rasterPath));
+    dirName = fileInfo.absolutePath();
+    name = fileInfo.baseName();
+    name = name + "_" + dtCurrent.toString("yyyyMMddhhmmss") + ".tif";
+    tempRasterPath = dirName + "/" + name;
 }
 
 int Renderer::rasterToPNG(const char *pngPath, int nQuality, int nLength)

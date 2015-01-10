@@ -9,20 +9,32 @@ enum ColorRamp{CR_BlackWhite, CR_DEM, CR_DoD, CR_Slope};
 class Renderer
 {
 public:
-    Renderer(const char *rasterPath, ColorRamp ramp, int nTransparency);
+    Renderer(const char *rasterPath,
+             ColorRamp ramp = CR_BlackWhite,
+             int nTransparency = 255);
+
+    int rasterToPNG(const char *pngPath,
+                    int nQuality,
+                    int nLength);
+    int setColorTable(ColorRamp rampStyle,
+                      int nTransparency);
 
 private:
     const char *rasterPath;
+    QString tempRasterPath;
     GDALDataset *pRaster, *pTempRaster;
     GDALDriver *pDriverPNG, *pDriverTiff;
     GDALColorTable colorTable;
-    double min, max, mean, stdev;
+    int nRows, nCols;
+    double min, max, mean, stdev, noData, noData2;
 
     virtual void createByteRaster() = 0;
 
-    int setColorTable(ColorRamp rampStyle, int nTransparency);
-    int rasterToPNG(const char *pngPath, int nQuality, int nLength);
-    int resizeAndCompressPNG(const char *inputImage, int nLength, int nQuality);
+    int setTempRasterPath(const char*
+                          rasterPath);
+    int resizeAndCompressPNG(const char *inputImage,
+                             int nLength,
+                             int nQuality);
 };
 
 #endif // RENDERER_H
