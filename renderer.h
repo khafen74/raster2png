@@ -16,9 +16,6 @@ public:
     int rasterToPNG(const char *pngPath,
                     int nQuality,
                     int nLength);
-    int setColorTable(ColorRamp rampStyle,
-                      int nTransparency);
-    int setupRaster(const char *inputRasterPath);
 
 private:
     const char *rasterPath;
@@ -34,11 +31,14 @@ private:
 
     virtual void createByteRaster() = 0;
 
-    int setTempRasterPath(const char*
-                          rasterPath);
     int resizeAndCompressPNG(const char *inputImage,
                              int nLength,
                              int nQuality);
+    int setColorTable(ColorRamp rampStyle,
+                      int nTransparency);
+    int setTempRasterPath(const char*
+                          rasterPath);
+    int setupRaster(const char *inputRasterPath);
 };
 
 #endif // RENDERER_H
