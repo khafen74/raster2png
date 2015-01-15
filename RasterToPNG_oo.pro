@@ -17,17 +17,23 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     renderer.cpp \
-    classifyrenderer.cpp \
-    stretchrendererstdev.cpp \
-    stretchrendererminmax.cpp
+    renderer_classified.cpp \
+    renderer_stretchminmax.cpp \
+    renderer_stretchstddev.cpp \
+    renderer_gcdptdens.cpp \
+    renderer_gcdslopedeg.cpp \
+    renderer_gcdslopeper.cpp
 
 HEADERS += \
     renderer.h \
-    classifyrenderer.h \
-    stretchrendererstdev.h \
-    stretchrendererminmax.h
+    renderer_classified.h \
+    renderer_stretchminmax.h \
+    renderer_stretchstddev.h \
+    renderer_gcdptdens.h \
+    renderer_gcdslopedeg.h \
+    renderer_gcdslopeper.h
 
-win32: LIBS += -L$$PWD/../../../../../../../MinGW/msys/1.0/local/lib/ -llibgdal
+win32: LIBS += -L$$PWD/../../../../../MinGW/msys/1.0/local/lib/ -llibgdal
 
-INCLUDEPATH += $$PWD/../../../../../../../MinGW/msys/1.0/local/include
-DEPENDPATH += $$PWD/../../../../../../../MinGW/msys/1.0/local/include
+INCLUDEPATH += $$PWD/../../../../../MinGW/msys/1.0/local/include
+DEPENDPATH += $$PWD/../../../../../MinGW/msys/1.0/local/include
