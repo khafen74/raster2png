@@ -21,6 +21,7 @@ protected:
     void classifyRaster();
     void createByteRaster();
     virtual void setClassBreaks() = 0;
+    void setEqualIntervalBreaks();
     void setZeroCenter(bool bValue);
 };
 

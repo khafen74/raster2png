@@ -5,12 +5,6 @@ Renderer_GCDSlopePer::Renderer_GCDSlopePer(const char *rasterPath,
 {
 }
 
-void Renderer_GCDSlopePer::createByteRaster()
-{
-    setClassBreaks();
-    classifyRaster();
-}
-
 void Renderer_GCDSlopePer::setClassBreaks()
 {
     classBreaks.resize(14);

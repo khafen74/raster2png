@@ -30,9 +30,9 @@ void Renderer_Classified::classifyRaster()
             }
             else
             {
-                if (oldRow[j] == adjMax)
+                if (oldRow[j] >= adjMax)
                 {
-                    newRow[j] = nClasses;
+                    newRow[j] = 255;
                 }
                 else if (oldRow[j] <= adjMin && oldRow[j] > (adjMin - 1.0))
                 {
@@ -69,7 +69,7 @@ void Renderer_Classified::createByteRaster()
     classifyRaster();
 }
 
-void Renderer_Classified::setClassBreaks()
+void Renderer_Classified::setEqualIntervalBreaks()
 {
     classBreaks.clear();
     classBreaks.resize(nClasses+1);
@@ -87,8 +87,12 @@ void Renderer_Classified::setClassBreaks()
         {
             classBreaks[i] = adjMax;
         }
-        qDebug()<<i<<" "<<classBreaks[i];
     }
+}
+
+void Renderer_Classified::setClassBreaks()
+{
+    setEqualIntervalBreaks();
 }
 
 void Renderer_Classified::setZeroCenter(bool bValue)

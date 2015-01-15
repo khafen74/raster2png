@@ -1,11 +1,11 @@
-#include "renderer_gcdptdens.h"
+#include "renderer_gcderror.h"
 
-Renderer_GCDPtDens::Renderer_GCDPtDens(const char *rasterPath,
-                                       int nTransparency):Renderer_Classified(rasterPath, 11, CR_GreenBlue, nTransparency, false, false)
+Renderer_GCDError::Renderer_GCDError(const char *rasterPath,
+                                     int nTransparency):Renderer_Classified(rasterPath, 11, CR_PartialSpectrum, nTransparency, false, false)
 {
 }
 
-void Renderer_GCDPtDens::setClassBreaks()
+void Renderer_GCDError::setClassBreaks()
 {
     if (max < 0.5 || max > 2.0)
     {

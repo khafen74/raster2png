@@ -22,7 +22,8 @@ SOURCES += main.cpp \
     renderer_stretchstddev.cpp \
     renderer_gcdptdens.cpp \
     renderer_gcdslopedeg.cpp \
-    renderer_gcdslopeper.cpp
+    renderer_gcdslopeper.cpp \
+    renderer_gcderror.cpp
 
 HEADERS += \
     renderer.h \
@@ -31,7 +32,8 @@ HEADERS += \
     renderer_stretchstddev.h \
     renderer_gcdptdens.h \
     renderer_gcdslopedeg.h \
-    renderer_gcdslopeper.h
+    renderer_gcdslopeper.h \
+    renderer_gcderror.h
 
 win32: LIBS += -L$$PWD/../../../../../MinGW/msys/1.0/local/lib/ -llibgdal
 

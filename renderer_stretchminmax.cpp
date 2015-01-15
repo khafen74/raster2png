@@ -29,8 +29,6 @@ void Renderer_StetchMinMax::createByteRaster()
                 byte = round(scaled * 254) + 1;
                 newRow[j] = byte;
             }
-            //qDebug()<<"max "<<maxCalc<<" min "<<minCalc<<" val "<<oldRow[j]+corVal<<" new "<<newRow[j];
-            //system("pause");
         }
         pTempRaster->GetRasterBand(1)->RasterIO(GF_Write, 0, i, nCols, 1, newRow, nCols, 1, GDT_Byte, 0, 0);
     }

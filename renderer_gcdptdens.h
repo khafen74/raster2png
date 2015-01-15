@@ -7,11 +7,10 @@ class Renderer_GCDPtDens : public Renderer_Classified
 {
 public:
     Renderer_GCDPtDens(const char *rasterPath,
-                       int classCount,
-                       ColorRamp ramp,
-                       int nTransparency,
-                       bool centerOnZero,
-                       bool displayZeroNoData);
+                       int nTransparency = 255);
+
+protected:
+    void setClassBreaks();
 };
 
 #endif // RENDERER_GCDPTDENS_H

@@ -3,17 +3,8 @@
 Renderer_GCDSlopeDeg::Renderer_GCDSlopeDeg(const char *rasterPath,
                                            int nTransparency):Renderer_Classified(rasterPath, 10, CR_SlopeGCD, nTransparency, false, false)
 {
-    nClasses = 10;
-    zeroNoData = false;
-    zeroCenter = false;
     setZeroCenter(zeroCenter);
     adjMax = 90.0, adjMin = 0.0;
-}
-
-void Renderer_GCDSlopeDeg::createByteRaster()
-{
-    setClassBreaks();
-    classifyRaster();
 }
 
 void Renderer_GCDSlopeDeg::setClassBreaks()

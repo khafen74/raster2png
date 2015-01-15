@@ -14,21 +14,17 @@ Renderer_StretchStdDev::Renderer_StretchStdDev(const char *inputRasterPath,
     if (sdMin < minCalc)
     {
         sdMin = minCalc;
-        qDebug()<<"changing min "<<min;
     }
     sdMax = adjMean + (sdStretch * stdev);
     if (sdMax > maxCalc)
     {
         sdMax = maxCalc;
-        qDebug()<<"changing max "<<max;
     }
     range = sdMax - sdMin;
-    qDebug()<<sdMax<<" "<<sdMin<<" "<<adjMean<<" "<<stdev<<" "<<corVal<<" "<<noData<<" "<<noData2;
 }
 
 void Renderer_StretchStdDev::createByteRaster()
 {
-    qDebug()<<"creating byte raster";
     double scaled;
     int byte;
 
@@ -55,17 +51,12 @@ void Renderer_StretchStdDev::createByteRaster()
             {
                 scaled = 1.0 - fabs(((sdMax) - (oldRow[j]+corVal)) / range);
                 byte = round(scaled * 254) + 1;
-                //qDebug()<<"old "<<oldRow[j]+corVal<<" min "<<sdMin<<" max "<<sdMax<<" byte "<<byte;
-                //system("PAUSE");
                 newRow[j] = byte;
             }
-            //qDebug()<<"old "<<oldRow[j]+corVal<<" min "<<sdMin<<" max "<<sdMax<<" old "<<oldRow[j]<<" new "<<newRow[j];
-            //system("PAUSE");
         }
 
         pTempRaster->GetRasterBand(1)->RasterIO(GF_Write, 0, i, nCols, 1, newRow, nCols, 1, GDT_Byte, 0, 0);
     }
-    qDebug()<<"finished";
 }
 
 void Renderer_StretchStdDev::setZeroCenter(bool bValue)

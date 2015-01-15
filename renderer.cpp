@@ -108,6 +108,34 @@ int Renderer::setRendererColorTable(ColorRamp rampStyle, int nTransparency)
         colorTable->CreateColorRamp(208, &four, 255, &five);
         break;
     }
+    case CR_PartialSpectrum:
+    {
+         QVector<int> red(11), grn(11), blu(11);
+
+        red[0] = 242, red[1] = 250, red[2] = 255, red[3] = 255, red[4] = 255, red[5] = 255, red[6] = 245, red[7] = 224, red[8] = 145, red[9] = 88, red[10] = 12;
+        grn[0] = 241, grn[1] = 245, grn[2] = 252, grn[3] = 213, grn[4] = 128, grn[5] = 0, grn[6] = 5, grn[7] = 7, grn[8] = 18, grn[9] = 28, grn[10] = 28;
+        blu[0] = 162, blu[1] = 112, blu[2] = 56, blu[3] = 0, blu[4] = 0, blu[5] = 0, blu[6] = 165, blu[7] = 240, blu[8] = 224, blu[9] = 199, blu[10] = 173;
+
+        GDALColorEntry one, two, three, four, five, six, seven;
+        one.c1 = red[0], one.c2 = grn[0], one.c3 = blu[0], one.c4 = nTransparency;
+        two.c1 = red[2], two.c2 = grn[2], two.c3 = blu[2], two.c4 = nTransparency;
+        three.c1 = red[3], three.c2 = grn[3], three.c3 = blu[3], three.c4 = nTransparency;
+        four.c1 = red[5], four.c2 = grn[5], four.c3 = blu[5], four.c4 = nTransparency;
+        five.c1 = red[7], five.c2 = grn[7], five.c3 = blu[7], five.c4 = nTransparency;
+        six.c1 = red[9], six.c2 = grn[9], six.c3 = blu[9], six.c4 = nTransparency;
+        seven.c1 = red[10], seven.c2 = grn[10], seven.c3 = blu[10], seven.c4 = nTransparency;
+
+        colorTable->CreateColorRamp(1, &one, 70, &two);
+        colorTable->CreateColorRamp(70, &two, 93, &three);
+        colorTable->CreateColorRamp(93, &three, 129, &four);
+        colorTable->CreateColorRamp(129, &four, 185, &five);
+        colorTable->CreateColorRamp(185, &five, 232, &six);
+        colorTable->CreateColorRamp(232, &six, 255, &seven);
+
+        colorTable->SetColorEntry(0, &trans);
+
+        break;
+    }
     case CR_Precipitation:
     {
         GDALColorEntry red, yel, gn1, gn2, gb1, gb2, gb3;
