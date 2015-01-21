@@ -5,6 +5,7 @@
 #include "renderer_gcdslopedeg.h"
 #include "renderer_gcdslopeper.h"
 #include "renderer_gcdptdens.h"
+#include "renderer_gcderror.h"
 
 int main(int argc, char *argv[])
 {
@@ -12,17 +13,15 @@ int main(int argc, char *argv[])
 
     GDALAllRegister();
 
-    const char *inputPath = "C:/Test/z_crap/ptdens1.img";
-    const char *pngPath = "C:/Test/z_crap/ptdenspng.png";
+    const char *inputPath = "C:/Test/z_crap/ras2png/dod7.tif";
+    const char *pngPath = "C:/Test/z_crap/ras2png/z_ras2png_out/dod7.png";
 
-    qDebug()<<"setting up renderer";
-    Renderer_GCDPtDens *Renderer1 = new Renderer_GCDPtDens(inputPath);
-    qDebug()<<"renderer set up";
-    Renderer1->rasterToPNG(pngPath, 100, 2000);
-    qDebug()<<"png printed";
+    Renderer_Classified *Renderer1 = new Renderer_Classified(inputPath, 20, CR_DoD, 255, true, true);
+    Renderer1->rasterToPNG(pngPath, 100, 1000);
+
 
     delete(Renderer1);
-    qDebug()<<"renderer deleted";
+    qDebug()<<"finished";
 
     return a.exec();
 }
