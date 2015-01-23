@@ -20,6 +20,7 @@ protected:
 
     void classifyRaster();
     void createByteRaster();
+    void createLegend();
     void setClassBreaks();
     void setEqualIntervalBreaks();
     void setZeroCenter(bool bValue);

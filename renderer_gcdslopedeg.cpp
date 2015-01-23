@@ -7,9 +7,15 @@ Renderer_GCDSlopeDeg::Renderer_GCDSlopeDeg(const char *rasterPath,
     adjMax = 90.0, adjMin = 0.0;
 }
 
+void Renderer_GCDSlopeDeg::createByteRaster()
+{
+    setClassBreaks();
+    classifyRaster();
+}
+
 void Renderer_GCDSlopeDeg::setClassBreaks()
 {
-    classBreaks.resize(11);
+    classBreaks.resize(nClasses + 1);
     classBreaks[0] = 0.0;
     classBreaks[1] = 2.0;
     classBreaks[2] = 5.0;

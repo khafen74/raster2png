@@ -1,4 +1,4 @@
-#include <QCoreApplication>
+#include <QApplication>
 #include "renderer_classified.h"
 #include "renderer_stretchminmax.h"
 #include "renderer_stretchstddev.h"
@@ -9,15 +9,16 @@
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
+    QApplication a(argc, argv);
 
     GDALAllRegister();
 
-    const char *inputPath = "C:/Test/z_crap/ras2png/dod7.tif";
-    const char *pngPath = "C:/Test/z_crap/ras2png/z_ras2png_out/dod7.png";
+    const char *inputPath = "C:/Test/z_crap/ras2png/error1.tif";
+    const char *pngPath = "C:/Test/z_crap/ras2png/z_ras2png_out/error1.png";
 
-    Renderer_Classified *Renderer1 = new Renderer_Classified(inputPath, 20, CR_DoD, 255, true, true);
+    Renderer_GCDError *Renderer1 = new Renderer_GCDError(inputPath);
     Renderer1->rasterToPNG(pngPath, 100, 1000);
+    Renderer1->printLegend();
 
 
     delete(Renderer1);

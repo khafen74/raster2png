@@ -10,6 +10,7 @@ public:
                        int nTransparency = 255);
 
 protected:
+    void createByteRaster();
     void setClassBreaks();
 };
 

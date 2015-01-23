@@ -15,6 +15,8 @@ public:
              bool zeroNoData = FALSE);
     ~Renderer();
 
+    void printLegend();
+    void printLegend(const char *path);
     int rasterToPNG(const char *pngPath,
                     int nQuality,
                     int nLength);
@@ -24,9 +26,10 @@ public:
 
 protected:
     const char *rasterPath;
+    const char *pngOutPath;
     float *oldRow;
     unsigned char *newRow;
-    QString tempRasterPath;
+    QString tempRasterPath, legendPath;
     GDALDataset *pRaster, *pTempRaster, *pPngDS;
     GDALDriver *pDriverPNG, *pDriverTiff;
     GDALColorTable *colorTable;
@@ -39,11 +42,13 @@ protected:
 
     void cleanUp();
     virtual void createByteRaster() = 0;
+    virtual void createLegend() = 0;
     int resizeAndCompressPNG(const char *inputImage,
                              int nLength,
                              int nQuality);
-    int setTempRasterPath(const char*
-                          rasterPath);
+    void setLegendPath();
+    void setLegendPath(const char *path);
+    int setTempRasterPath(const char *rasterPath);
     void setup();
     int setupRaster(const char *inputRasterPath);
 };

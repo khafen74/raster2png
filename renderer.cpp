@@ -6,6 +6,8 @@ Renderer::Renderer(const char *inputRasterPath,
                    int nTransparency,
                    bool zeroNoData)
 {
+    pngOutPath = NULL;
+
     colorTable = new GDALColorTable(GPI_RGB);
 
     pDriverTiff = GetGDALDriverManager()->GetDriverByName("GTiff");
@@ -26,8 +28,22 @@ Renderer::~Renderer()
     GDALDestroyColorTable(colorTable);
 }
 
+void Renderer::printLegend()
+{
+    setLegendPath();
+    createLegend();
+}
+
+void Renderer::printLegend(const char *path)
+{
+    setLegendPath(path);
+    createLegend();
+}
+
 int Renderer::rasterToPNG(const char *pngPath, int nQuality, int nLength)
 {
+    pngOutPath = pngPath;
+
     setup();
 
     createByteRaster();
@@ -246,6 +262,21 @@ int Renderer::resizeAndCompressPNG(const char *inputImage, int nLength, int nQua
     image.save(QString::fromUtf8(inputImage), 0, nQuality);
 
     return 0;
+}
+
+void Renderer::setLegendPath()
+{
+    QString legendName, legendDir;
+    QFile pngFile(QString::fromUtf8(pngOutPath));
+    QFileInfo pngInfo(pngFile);
+    legendDir = pngInfo.absolutePath();
+    legendName = pngInfo.baseName() + "_legend.png";
+    legendPath = legendDir + "/" + legendName;
+}
+
+void Renderer::setLegendPath(const char *path)
+{
+    legendPath = QString::fromUtf8(path);
 }
 
 int Renderer::setTempRasterPath(const char *rasterPath)

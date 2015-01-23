@@ -16,6 +16,7 @@ protected:
     double corVal, maxCalc, minCalc;
 
     void createByteRaster();
+    void createLegend();
     void setZeroCenter(bool bValue);
 };
 

@@ -1,8 +1,14 @@
 #include "renderer_gcderror.h"
 
 Renderer_GCDError::Renderer_GCDError(const char *rasterPath,
-                                     int nTransparency):Renderer_Classified(rasterPath, 11, CR_PartialSpectrum, nTransparency, false, false)
+                                     int nTransparency):Renderer_Classified(rasterPath, 12, CR_PartialSpectrum, nTransparency, false, false)
 {
+}
+
+void Renderer_GCDError::createByteRaster()
+{
+    setClassBreaks();
+    classifyRaster();
 }
 
 void Renderer_GCDError::setClassBreaks()
@@ -13,7 +19,7 @@ void Renderer_GCDError::setClassBreaks()
     }
     else
     {
-        classBreaks.resize(12);
+        classBreaks.resize(nClasses+1);
         classBreaks[0] = 0.0;
         classBreaks[1] = 0.1;
         classBreaks[2] = 0.2;

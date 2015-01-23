@@ -6,8 +6,6 @@
 
 QT       += core widgets
 
-QT       -= gui
-
 TARGET = RasterToPNG_oo
 CONFIG   += console
 CONFIG   -= app_bundle

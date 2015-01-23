@@ -69,6 +69,37 @@ void Renderer_Classified::createByteRaster()
     classifyRaster();
 }
 
+void Renderer_Classified::createLegend()
+{
+    int x = 0, y = 0, yIncrement = 18, width = 24, height = 12, textX = 32, textY = 11;
+
+    QImage legend(170, (yIncrement*nClasses), QImage::Format_ARGB32);
+    QPainter legendPainter(&legend);
+    legendPainter.setPen(Qt::black);
+    legendPainter.setCompositionMode(QPainter::CompositionMode_Source);
+    legendPainter.fillRect(legend.rect(), Qt::transparent);
+
+    int colorIndex;
+    GDALColorEntry colorEntry;
+    QString text;
+
+    for (int i=0; i<nClasses; i++)
+    {
+        text = QString::number(classBreaks[i]) + " - " + QString::number(classBreaks[i+1]);
+        colorIndex = floor(((i*1.0) / (nClasses*1.0)) *254) + 1;
+        colorTable->GetColorEntryAsRGB(colorIndex, &colorEntry);
+        QColor swatchColor(colorEntry.c1, colorEntry.c2, colorEntry.c3);
+        QRectF swatchRect(x, y, width, height);
+        legendPainter.setBrush(swatchColor);
+        legendPainter.drawRect(swatchRect);
+        legendPainter.drawText(textX, textY, text);
+        y += yIncrement;
+        textY += yIncrement;
+    }
+
+    legend.save(legendPath);
+}
+
 void Renderer_Classified::setEqualIntervalBreaks()
 {
     classBreaks.clear();
