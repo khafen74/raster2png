@@ -13,10 +13,10 @@ int main(int argc, char *argv[])
 
     GDALAllRegister();
 
-    const char *inputPath = "C:/Test/z_crap/ras2png/error1.tif";
-    const char *pngPath = "C:/Test/z_crap/ras2png/z_ras2png_out/error1.png";
+    const char *inputPath = "C:/Test/z_crap/ras2png/dod7.tif";
+    const char *pngPath = "C:/Test/z_crap/ras2png/z_ras2png_out/dod7.png";
 
-    Renderer_GCDError *Renderer1 = new Renderer_GCDError(inputPath);
+    Renderer_Classified *Renderer1 = new Renderer_Classified(inputPath, 20, CR_DoD, 255, true, true);
     Renderer1->rasterToPNG(pngPath, 100, 1000);
     Renderer1->printLegend();
 

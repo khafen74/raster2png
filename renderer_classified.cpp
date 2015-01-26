@@ -11,6 +11,7 @@ Renderer_Classified::Renderer_Classified(const char *rasterPath,
     nOdd = nClasses % 2;
 
     setZeroCenter(zeroCenter);
+    setPrecision();
 
     range = adjMax - adjMin;
     interval = range / (nClasses*1.0);
@@ -46,7 +47,7 @@ void Renderer_Classified::classifyRaster()
                     {
                         if (oldRow[j] >= classBreaks[count] && oldRow[j] < classBreaks[count+1])
                         {
-                            newRow[j] = floor(((count*1.0) / (nClasses*1.0)) * 254) + 1;
+                            newRow[j] = floor(((count*1.0) / ((nClasses-1)*1.0)) * 254) + 1;
                             found = true;
                         }
                         else
@@ -81,12 +82,21 @@ void Renderer_Classified::createLegend()
 
     int colorIndex;
     GDALColorEntry colorEntry;
-    QString text;
+    QString text, text1, text2;
 
     for (int i=0; i<nClasses; i++)
     {
-        text = QString::number(classBreaks[i]) + " - " + QString::number(classBreaks[i+1]);
-        colorIndex = floor(((i*1.0) / (nClasses*1.0)) *254) + 1;
+        text1 = "", text2 = "";
+        if (classBreaks[i] >= 0.0)
+        {
+            text1 = " ";
+        }
+        if (classBreaks[i+1] >= 0.0)
+        {
+            text2 = " ";
+        }
+        text = text1 + QString::number(classBreaks[i], 'f', precision) + " to " + text2 + QString::number(classBreaks[i+1], 'f', precision);
+        colorIndex = floor(((i*1.0) / ((nClasses-1)*1.0)) *254) + 1;
         colorTable->GetColorEntryAsRGB(colorIndex, &colorEntry);
         QColor swatchColor(colorEntry.c1, colorEntry.c2, colorEntry.c3);
         QRectF swatchRect(x, y, width, height);

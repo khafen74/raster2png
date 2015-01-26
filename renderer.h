@@ -13,7 +13,7 @@ public:
              ColorRamp ramp = CR_BlackWhite,
              int nTransparency = 255,
              bool zeroNoData = FALSE);
-    ~Renderer();
+    virtual ~Renderer();
 
     void printLegend();
     void printLegend(const char *path);
@@ -22,7 +22,10 @@ public:
                     int nLength);
     int setRendererColorTable(ColorRamp rampStyle,
                       int nTransparency);
+    void setPrecision(int prec);
     void setZeroNoData(bool bValue);
+
+    static void stackImages(const char *inputList, const char *outputImage, int nQuality);
 
 protected:
     const char *rasterPath;
@@ -34,7 +37,7 @@ protected:
     GDALDriver *pDriverPNG, *pDriverTiff;
     GDALColorTable *colorTable;
     GDALDataType rasterType;
-    int nRows, nCols;
+    int nRows, nCols, precision;
     double min, max, mean, stdev, noData, noData2;
     double adjMin, adjMax, adjMean, range;
     double transform[6];
@@ -48,6 +51,7 @@ protected:
                              int nQuality);
     void setLegendPath();
     void setLegendPath(const char *path);
+    void setPrecision();
     int setTempRasterPath(const char *rasterPath);
     void setup();
     int setupRaster(const char *inputRasterPath);

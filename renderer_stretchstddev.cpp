@@ -21,6 +21,8 @@ Renderer_StretchStdDev::Renderer_StretchStdDev(const char *inputRasterPath,
         sdMax = maxCalc;
     }
     range = sdMax - sdMin;
+
+    setPrecision();
 }
 
 void Renderer_StretchStdDev::createByteRaster()

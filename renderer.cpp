@@ -61,6 +61,11 @@ int Renderer::rasterToPNG(const char *pngPath, int nQuality, int nLength)
     return 0;
 }
 
+void Renderer::setPrecision(int prec)
+{
+    precision = prec;
+}
+
 int Renderer::setRendererColorTable(ColorRamp rampStyle, int nTransparency)
 {
     GDALColorEntry trans;
@@ -232,6 +237,39 @@ void Renderer::setZeroNoData(bool bValue)
     }
 }
 
+void Renderer::stackImages(const char *inputList, const char *outputImage, int nQuality)
+{
+    QString delimInput = QString::fromUtf8(inputList);
+    //split input list of paths
+    QStringList pngPaths = delimInput.split(";", QString::SkipEmptyParts);
+
+    //base image is the first path in the list
+    QImage base = QImage(pngPaths[0]);
+
+    //create the stacked image
+    QImage layered = QImage(base.size(), QImage::Format_ARGB32);
+    QPainter painter(&layered);
+
+    //assign the stacked image to the painter
+    painter.setCompositionMode(QPainter::CompositionMode_Source);
+    painter.fillRect(layered.rect(), Qt::transparent);
+
+    //add the base image
+    painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+    painter.drawImage(0,0,base);
+
+    for (int i=1; i<pngPaths.size(); i++)
+    {
+        //add another image to the stacked image
+        QImage overlay = QImage(pngPaths[i]);
+        painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+        painter.drawImage(0,0,overlay);
+    }
+
+    //save the stacked image
+    layered.save(QString::fromUtf8(outputImage), 0, nQuality);
+}
+
 void Renderer::cleanUp()
 {
     GDALClose(pTempRaster);
@@ -243,6 +281,8 @@ void Renderer::cleanUp()
     oldRow = NULL;
     newRow = NULL;
 }
+
+
 
 int Renderer::resizeAndCompressPNG(const char *inputImage, int nLength, int nQuality)
 {
@@ -277,6 +317,54 @@ void Renderer::setLegendPath()
 void Renderer::setLegendPath(const char *path)
 {
     legendPath = QString::fromUtf8(path);
+}
+
+void Renderer::setPrecision()
+{
+    double value;
+
+    value = fabs(adjMax);
+
+    if (value < 0.000001)
+    {
+        precision = 8;
+    }
+    else if (value < 0.00001)
+    {
+        precision = 7;
+    }
+    else if (value < 0.0001)
+    {
+        precision = 6;
+    }
+    else if (value < 0.001)
+    {
+        precision = 5;
+    }
+    else if (value < 0.01)
+    {
+        precision = 4;
+    }
+    else if (value < 0.1)
+    {
+        precision = 2;
+    }
+    else if (value < 1.0)
+    {
+        precision = 1;
+    }
+    else if (value < 10.0)
+    {
+        precision = 1;
+    }
+    else if (value < 100.0)
+    {
+        precision = 1;
+    }
+    else
+    {
+        precision = 0;
+    }
 }
 
 int Renderer::setTempRasterPath(const char *rasterPath)

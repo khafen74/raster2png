@@ -7,6 +7,7 @@ Renderer_StetchMinMax::Renderer_StetchMinMax(const char *inputRasterPath,
                                              bool zeroNoData):Renderer(inputRasterPath, ramp, nTransparency, zeroNoData)
 {
     setZeroCenter(zeroCenter);
+    setPrecision();
 }
 
 void Renderer_StetchMinMax::createByteRaster()
@@ -53,7 +54,7 @@ void Renderer_StetchMinMax::createLegend()
     QRectF gradRect(0,0,20,100);
     QString text;
     legendPainter.fillRect(gradRect, gradient);
-    text = QString::number(adjMax);
+    text = QString::number(adjMax, 'f', precision);
     legendPainter.drawText(22, 10, text);
     text = QString::number(adjMin);
     legendPainter.drawText(22, 98, text);
