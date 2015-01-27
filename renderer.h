@@ -4,7 +4,7 @@
 #include "gdal_priv.h"
 #include <QtGui>
 
-enum ColorRamp{CR_BlackWhite, CR_DEM, CR_DoD, CR_GrainSize, CR_GreenBlue, CR_PartialSpectrum, CR_Precipitation, CR_Slope, CR_SlopeGCD};
+enum ColorRamp{CR_BlackWhite, CR_DEM, CR_DoD, CR_GrainSize, CR_GreenBlue, CR_LtBlueDkBlue, CR_PartialSpectrum, CR_Precipitation, CR_Slope, CR_SlopeGCD, CR_WhiteRed};
 
 class Renderer
 {

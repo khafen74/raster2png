@@ -61,6 +61,33 @@ void Renderer_StretchStdDev::createByteRaster()
     }
 }
 
+void Renderer_StretchStdDev::createLegend()
+{
+    QImage legend(60, 100, QImage::Format_ARGB32);
+    QLinearGradient gradient(0,0,0,100);
+    GDALColorEntry entry;
+    QPainter legendPainter(&legend);
+    legendPainter.setCompositionMode(QPainter::CompositionMode_Source);
+    legendPainter.fillRect(legend.rect(), Qt::transparent);
+
+    for (int i=0; i<255; i++)
+    {
+        colorTable->GetColorEntryAsRGB(i+1, &entry);
+        QColor color(entry.c1, entry.c2, entry.c3);
+        gradient.setColorAt((1.0 -(i*1.0)/(255*1.0)), color);
+    }
+
+    QRectF gradRect(0,0,20,100);
+    QString text;
+    legendPainter.fillRect(gradRect, gradient);
+    text = QString::number(adjMax, 'f', precision);
+    legendPainter.drawText(22, 10, text);
+    text = QString::number(adjMin, 'f', precision);
+    legendPainter.drawText(22, 98, text);
+
+    legend.save(legendPath);
+}
+
 void Renderer_StretchStdDev::setZeroCenter(bool bValue)
 {
     zeroCenter = bValue;

@@ -15,10 +15,14 @@ int main(int argc, char *argv[])
 
     const char *inputPath = "C:/Test/z_crap/ras2png/dod7.tif";
     const char *pngPath = "C:/Test/z_crap/ras2png/z_ras2png_out/dod7.png";
+    const char *list = "C:/Test/z_crap/ras2png/z_ras2png_out/dod7.png;C:/Test/z_crap/ras2png/z_ras2png_out/dod7_legend.png";
+    const char *listOut = "C:/Test/z_crap/ras2png/z_ras2png_out/stacked.png";
 
-    Renderer_Classified *Renderer1 = new Renderer_Classified(inputPath, 20, CR_DoD, 255, true, true);
+    Renderer_StretchStdDev *Renderer1 = new Renderer_StretchStdDev(inputPath, 2.5, CR_LtBlueDkBlue, 255, false, false);
     Renderer1->rasterToPNG(pngPath, 100, 1000);
     Renderer1->printLegend();
+
+    Renderer::stackImages(list, listOut, 100);
 
 
     delete(Renderer1);

@@ -17,6 +17,7 @@ protected:
     double sdStretch, sdMin, sdMax, corVal, maxCalc, minCalc;
 
     void createByteRaster();
+    void createLegend();
     void setZeroCenter(bool bValue);
 };
 

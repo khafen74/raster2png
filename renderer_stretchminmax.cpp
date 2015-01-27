@@ -1,6 +1,6 @@
 #include "renderer_stretchminmax.h"
 
-Renderer_StetchMinMax::Renderer_StetchMinMax(const char *inputRasterPath,
+Renderer_StretchMinMax::Renderer_StretchMinMax(const char *inputRasterPath,
                                              ColorRamp ramp,
                                              int nTransparency,
                                              bool zeroCenter,
@@ -10,7 +10,7 @@ Renderer_StetchMinMax::Renderer_StetchMinMax(const char *inputRasterPath,
     setPrecision();
 }
 
-void Renderer_StetchMinMax::createByteRaster()
+void Renderer_StretchMinMax::createByteRaster()
 {
     double scaled, byte;
 
@@ -35,7 +35,7 @@ void Renderer_StetchMinMax::createByteRaster()
     }
 }
 
-void Renderer_StetchMinMax::createLegend()
+void Renderer_StretchMinMax::createLegend()
 {
     QImage legend(60, 100, QImage::Format_ARGB32);
     QLinearGradient gradient(0,0,0,100);
@@ -56,13 +56,13 @@ void Renderer_StetchMinMax::createLegend()
     legendPainter.fillRect(gradRect, gradient);
     text = QString::number(adjMax, 'f', precision);
     legendPainter.drawText(22, 10, text);
-    text = QString::number(adjMin);
+    text = QString::number(adjMin, 'f', precision);
     legendPainter.drawText(22, 98, text);
 
     legend.save(legendPath);
 }
 
-void Renderer_StetchMinMax::setZeroCenter(bool bValue)
+void Renderer_StretchMinMax::setZeroCenter(bool bValue)
 {
     zeroCenter = bValue;
 

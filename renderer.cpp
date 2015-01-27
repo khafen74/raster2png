@@ -128,6 +128,17 @@ int Renderer::setRendererColorTable(ColorRamp rampStyle, int nTransparency)
         colorTable->CreateColorRamp(208, &four, 255, &five);
         break;
     }
+    case CR_LtBlueDkBlue:
+    {
+        GDALColorEntry ltb, dkb;
+        ltb.c1 = 182, ltb.c2 = 237, ltb.c3 = 240, ltb.c4 = nTransparency;
+        dkb.c1 = 9, dkb.c2 = 9, dkb.c3 = 145, dkb.c4 = nTransparency;
+
+        colorTable->CreateColorRamp(1, &ltb, 255, &dkb);
+        colorTable->SetColorEntry(0, &trans);
+        break;
+        break;
+    }
     case CR_PartialSpectrum:
     {
          QVector<int> red(11), grn(11), blu(11);
@@ -216,6 +227,17 @@ int Renderer::setRendererColorTable(ColorRamp rampStyle, int nTransparency)
         }
 
         colorTable->SetColorEntry(0, &trans);
+        break;
+    }
+    case CR_WhiteRed:
+    {
+        GDALColorEntry red, wht;
+        red.c1 = 230, red.c2 = 0, red.c3 = 0, red.c4 = nTransparency;
+        wht.c1 = 255, wht.c2 = 255, wht.c3 = 255, wht.c4 = nTransparency;
+
+        colorTable->CreateColorRamp(1, &wht, 255, &red);
+        colorTable->SetColorEntry(0, &trans);
+        break;
         break;
     }
     }

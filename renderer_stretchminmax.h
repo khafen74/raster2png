@@ -3,10 +3,10 @@
 
 #include "renderer.h"
 
-class Renderer_StetchMinMax : public Renderer
+class Renderer_StretchMinMax : public Renderer
 {
 public:
-    Renderer_StetchMinMax(const char *inputRasterPath,
+    Renderer_StretchMinMax(const char *inputRasterPath,
                           ColorRamp ramp = CR_BlackWhite,
                           int nTransparency = 255,
                           bool zeroCenter = FALSE,
