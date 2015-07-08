@@ -16,24 +16,24 @@ Raster to PNG supports two types of stretched symbology; Minimum - Maximum and S
 
         //create the renderer
         //input raster path, color ramp style, transparency (0-255), center ramp on zero, symbolize zero as NoData
-        Renderer_StretchMinMax Renderer1 = new Renderer_StretchMinMax(inputRaster, CR_BlackWhite, 255, FALSE, FALSE);
+        Renderer_StretchMinMax *Renderer1 = new Renderer_StretchMinMax(inputRaster, CR_BlackWhite, 255, FALSE, FALSE);
 
         //input raster path, std dev stretch, . . . 
-        Renderer_StretchStdDev Renderer2 = new Renderer_StretchStdDev(inputRaster, 2.5, CR_BlackWhite, 255, FALSE, FALSE);
+        Renderer_StretchStdDev *Renderer2 = new Renderer_StretchStdDev(inputRaster, 2.5, CR_BlackWhite, 255, FALSE, FALSE);
 
         //output PNG path, quality (0-100), size of output PNG (no. of pixels on longest side)
-        Renderer1.rasterToPNG(outputPNG, 100, 1000);
-        Renderer2.rasterToPNG(outputPNG2, 100, 1000);
+        Renderer1->rasterToPNG(outputPNG, 100, 1000);
+        Renderer2->rasterToPNG(outputPNG2, 100, 1000);
    
 ###Classified Symbology
 The renderer for classified symbology has the same parameters as the stretched symbology renderers, except it has an `integer` parameter for the number of classes instead of a `double` parameter for the stretch function. The code below creates a classified PNG with 20 classes. Each classification is done with an equal interval method.
 
         //create the renderer
         //input raster path, number of classes, color ramp style, transparency, center ramp on zero, symbolize zero as NoData
-        Renderer_Classified Renderer1 = new Renderer_Classified(inputRaster, 20, CR_BlackWhite, 255, FALSE, FALSE);
+        Renderer_Classified *Renderer1 = new Renderer_Classified(inputRaster, 20, CR_BlackWhite, 255, FALSE, FALSE);
 
         //print to PNG
-        Renderer1.rasterToPNG(outputPNG1, 100, 1000);
+        Renderer1->rasterToPNG(outputPNG1, 100, 1000);
 
 ###Special Cases (Byte data and GCD)
 When converting a raster that contains byte data (e.g. hillshade raster) be sure to use the `Renderer_ByteData` class. This class will copy the values directly to the PNG instead of classifying or applying a stretch to the values during conversion to a PNG. Raster to PNG displays the values 0 and 255 as NoData, because ESRI uses 255 as NoData for byte rasters and ET-AL functions use 0 as NoData for byte rasters. IMPORTANT: the values in the raster must range from 0 - 255 for this to work properly.
