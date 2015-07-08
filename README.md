@@ -1,7 +1,6 @@
-# Raster-Symbology-and-PNG-Conversion
-Renderer classes for symbolizing and converting raster data sets to PNG images
+#raster2png
+Renderer classes for symbolizing and converting raster data sets to PNG images. 
 
-#Raster to PNG
 Raster to PNG is a set of C++ classes that leverage the Geospatial Data Abstraction Library (GDAL) to convert raster data sets to PNG images for display in reports. These classes can reproduce symbology from ESRI products and the Geomorphic Change Detection (GCD) software. Raster to PNG also supports legend printing (as a separate PNG image).
 
 ##1. Creating a PNG Image from a Raster
